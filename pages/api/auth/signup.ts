@@ -2,7 +2,7 @@ import { prisma } from "../../../prisma/share-client";
 import { hash } from 'bcryptjs';
 
 export default async function handler(req, res) {
-    const { name, email} = req.body;
+    const { name, email, password} = req.body;
     
     if(!email || !email.includes('@') || !name) {
         res.status(422).json({ message: 'Invalid Data'});
@@ -22,7 +22,8 @@ export default async function handler(req, res) {
     const result = await prisma.user.create({
       data: {
             email: email,
-            name: await hash(name,12)
+            password: await hash(password,12),
+            name: name
         },
       },
     );

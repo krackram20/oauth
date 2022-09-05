@@ -1,9 +1,10 @@
 import { prisma } from "../../prisma/share-client";
-import { signIn, signOut, useSession } from 'next-auth/react'
+import {  signOut, useSession } from 'next-auth/react'
 import Link from "next/link";
 import Image from "next/image";
 import FileUploader from "../../components/stylecomponents/logic/fileUploader";
 import Header from "../../components/stylecomponents/logic/header";
+import DisplayListDf from "../../components/DisplayListDf";
 
 
 export async function getStaticPaths() {
@@ -21,15 +22,19 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
     // Fetch necessary data for the blog post using params.slug
     const email = context.params.email;
-    const allUsers = await prisma.user.findMany({ where: { email: email } })
+    const [allUsers, allDFs] = await Promise.all([
+        prisma.user.findMany({ where: { email: email } })   , prisma.datasets.findMany( {where:{owner:email}})
+    ])
+
     return {
         props: {
-            info: allUsers[0]
+            info: allUsers[0],
+            dataframes: allDFs
         },
     };
 }
 
-export default function dashboard({ info }: any) {
+export default function dashboard({ info, dataframes }: any) {
     const { data, status } = useSession()
 
     const userData = JSON.parse(JSON.stringify(info))
@@ -49,6 +54,7 @@ export default function dashboard({ info }: any) {
                     <button onClick={() => signOut()} >Sign Out</button>
                     <Image src="/empty_files.svg" height={30} width={30} alt = '' />
                     <FileUploader/>
+                    <DisplayListDf dataf = {dataframes} />
 
                 </div>
 

@@ -15,7 +15,7 @@ export default NextAuth({
       name: "Email",
       credentials: {
         email: { label: "Username", type: "text", placeholder: "jsmith" },
-        name: { label: "Password", type: "password" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         // Add logic here to look up the user from the credentials supplied
@@ -27,7 +27,7 @@ export default NextAuth({
           console.log("No user found with the email");
         }
         //Check hased password with DB password
-        const checkPassword = await compare(credentials.name, result[0].name);
+        const checkPassword = await compare(credentials.password, result[0].password);
         //Incorrect password - send response
         if (!checkPassword) {
           console.log("Password doesnt match");

@@ -27,6 +27,7 @@ const SignUp = () => {
 
      const [email, setEmail] = useState('');
     const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
     const [exists, setExists] = useState(false)
 
 
@@ -34,7 +35,7 @@ const SignUp = () => {
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try {
-          const body = { name,email };
+          const body = { name,email, password };
           await fetch('/api/auth/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -75,6 +76,14 @@ const SignUp = () => {
               setName(e.target.value)
            }}
             type="text"
+            name="name"
+            placeholder="name"
+            required />
+             <input 
+             onChange={e => {
+              setPassword(e.target.value)
+           }}
+            type="password"
             name="password"
             placeholder="password"
             required />

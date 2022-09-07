@@ -1,7 +1,7 @@
 import { prisma } from "../../../prisma/share-client";
 
 export default async function handler(req, res) {
-    const { dataframe, dfName, email} = req.body;
+    const { jsonCol, jsonRow, dfName, email, concat} = req.body;
     
     if(!dfName) {
         res.status(422).json({ message: 'Invalid Data'});
@@ -10,9 +10,11 @@ export default async function handler(req, res) {
 
     const result = await prisma.datasets.create({
       data: {
-           name: dfName,
-           dataset: dataframe,
-           owner: email
+           name: concat,
+           columns: jsonCol,
+           rows: jsonRow,
+           owner: email, 
+           concat: dfName
         },
       },
     );

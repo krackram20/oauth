@@ -61,9 +61,11 @@ model VerificationToken {
 
 model Datasets {
     id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    concat     String   @unique
     owner      String
     name       String
-    dataset    Json
+    columns    Json?
+    rows       Json?
     statistics Json?
     charts     Json[]
     visitors   String[]

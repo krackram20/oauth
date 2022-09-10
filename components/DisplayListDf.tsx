@@ -1,6 +1,7 @@
 
 import {  useSession } from 'next-auth/react'
 import {  useState } from "react";
+import BubbleChart from './charts/bubble';
 import DisplayDataset from './stylecomponents/DisplayDataset';
 import DeleteDf from './stylecomponents/logic/DeleteDf';
 
@@ -37,6 +38,7 @@ return <>
        {  currentDf && <div>
         <DisplayDataset cols = {datastring[currentDf].columns.columns} rows = {datastring[currentDf].rows.rows}  />
         <DeleteDf name = {datastring[currentDf].name } /> 
+        <BubbleChart variables = {datastring[currentDf].rows} columns = {datastring[currentDf].columns} />
        </div>
        }
 </>

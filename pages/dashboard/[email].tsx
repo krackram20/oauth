@@ -5,6 +5,13 @@ import Image from "next/image";
 import FileUploader from "../../components/stylecomponents/logic/fileUploader";
 import Header from "../../components/stylecomponents/logic/header";
 import DisplayListDf from "../../components/DisplayListDf";
+import { Bar } from "react-chartjs-2";
+
+import ScatterChart from "../../components/charts/scatter";
+import LineChart from "../../components/charts/line";
+import AreaChart from "../../components/charts/area";
+import BubbleChart from "../../components/charts/bubble";
+
 
 
 export async function getStaticPaths() {

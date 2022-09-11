@@ -1,48 +1,59 @@
-
-import {  useSession } from 'next-auth/react'
-import {  useState } from "react";
-import BubbleChart from './charts/bubble';
-import DisplayDataset from './stylecomponents/DisplayDataset';
-import DeleteDf from './stylecomponents/logic/DeleteDf';
+import { useState } from "react";
+import ScatterChart from "./charts/scatter";
+import DisplayDataset from "./stylecomponents/DisplayDataset";
+import DeleteDf from "./stylecomponents/logic/DeleteDf";
 
 type props = {
-    dataf:any
-}
+  dataf: any;
+};
 
-const DisplayListDf = ({dataf}:props) => {
-    
-    const [list, setList] = useState([])
-    const [currentDf, setCurrentDf] = useState< number | null>(null)
+const DisplayListDf = ({ dataf }: props) => {
+  const [list, setList] = useState([]);
+  const [currentDf, setCurrentDf] = useState<number | null>(null);
 
-    const datastring = dataf
+  const datastring = dataf;
 
-    console.log(datastring)
+  console.log(datastring);
 
-    
-     
-return <>
-    <button onClick = {()=>{console.log(dataf, 'djdjdj'); setList([1]);
-    }}> My dataframes</button>
-    {list.length > 0 && <div>
-         {datastring.map((df,index) => {
-            return <button key={index}
-            onClick = { () => {setCurrentDf(index)}}
-            >{df.concat}</button>
-         })}
+  return (
+    <>
+      <button
+        onClick={() => {
+          setList([1]);
+        }}
+      >
+        {" "}
+        My dataframes
+      </button>
+      {list.length > 0 && (
+        <div>
+          {datastring.map((df, index) => {
+            return (
+              <button
+                key={index}
+                onClick={() => {
+                  setCurrentDf(index);
+                }}
+              >
+                {df.concat}
+              </button>
+            );
+          })}
+        </div>
+      )}
+      {list.length === 0 && <div>you dont have any datasets yet</div>}
+      {currentDf && (
+        <div>
+          <DisplayDataset
+            cols={datastring[currentDf].columns.columns}
+            rows={datastring[currentDf].rows.rows}
+          />
+          <DeleteDf name={datastring[currentDf].name} />
+          <ScatterChart variables={datastring[currentDf]} />
+        </div>
+      )}
+    </>
+  );
+};
 
-         
-        </div>}
-        {list.length===0 && <div>
-        you dont have any datasets yet 
-        </div>}
-       {  currentDf && <div>
-        <DisplayDataset cols = {datastring[currentDf].columns.columns} rows = {datastring[currentDf].rows.rows}  />
-        <DeleteDf name = {datastring[currentDf].name } /> 
-        <BubbleChart variables = {datastring[currentDf].rows} columns = {datastring[currentDf].columns} />
-       </div>
-       }
-</>
-   
-}
-
-export default DisplayListDf
+export default DisplayListDf;

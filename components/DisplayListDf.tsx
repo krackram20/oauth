@@ -1,19 +1,40 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
+import AreaChart from "./charts/area";
+import BarChart from "./charts/bar";
+import BubbleChart from "./charts/bubble";
+import LineChart from "./charts/line";
 import ScatterChart from "./charts/scatter";
 import DisplayDataset from "./stylecomponents/DisplayDataset";
+import ChartType from "./stylecomponents/logic/ChartType";
 import DeleteDf from "./stylecomponents/logic/DeleteDf";
 
 type props = {
   dataf: any;
 };
 
+const initialState = { chart: "" };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "bubble":
+      return { chart: "bubble" };
+    case "scatter":
+      return { chart: "scatter" };
+    case "area":
+      return { chart: "area" };
+    case "bar":
+      return { chart: "bar" };
+    case "line":
+      return { chart: "line" };
+  }
+}
+
 const DisplayListDf = ({ dataf }: props) => {
   const [list, setList] = useState([]);
   const [currentDf, setCurrentDf] = useState<number | null>(null);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const datastring = dataf;
-
-  console.log(datastring);
 
   return (
     <>
@@ -49,7 +70,28 @@ const DisplayListDf = ({ dataf }: props) => {
             rows={datastring[currentDf].rows.rows}
           />
           <DeleteDf name={datastring[currentDf].name} />
-          <ScatterChart variables={datastring[currentDf]} />
+          <ChartType dataset={datastring[currentDf]} />
+          <div>
+            <button onClick={() => dispatch({ type: "line" })}>Line </button>
+            <button onClick={() => dispatch({ type: "bar" })}>Bar </button>
+            <button onClick={() => dispatch({ type: "scatter" })}>
+              Scatter
+            </button>
+            <button onClick={() => dispatch({ type: "area" })}>Area</button>
+            <button onClick={() => dispatch({ type: "bubble" })}>Bubble</button>
+
+            <div>
+              {state.chart === "line" && <LineChart />}
+              {state.chart === "bar" && <BarChart />}
+              {state.chart === "scatter" && (
+                <ScatterChart variables={datastring[currentDf]} />
+              )}
+              {state.chart === "area" && <AreaChart />}
+              {state.chart === "bubble" && (
+                <BubbleChart variables={datastring[currentDf]} />
+              )}
+            </div>
+          </div>
         </div>
       )}
     </>

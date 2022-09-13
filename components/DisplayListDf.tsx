@@ -81,8 +81,8 @@ const DisplayListDf = ({ dataf }: props) => {
             <button onClick={() => dispatch({ type: "bubble" })}>Bubble</button>
 
             <div>
-              {state.chart === "line" && <LineChart />}
-              {state.chart === "bar" && <BarChart />}
+              {state.chart === "line" && <LineChart variables={datastring[currentDf]} />}
+              {state.chart === "bar" && <BarChart  variables={datastring[currentDf]} />}
               {state.chart === "scatter" && (
                 <ScatterChart variables={datastring[currentDf]} />
               )}

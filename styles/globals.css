@@ -1,13 +1,13 @@
 html,
 body {
   padding: 0;
-  margin: 0;
+  margin : 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
+  color          : inherit;
   text-decoration: none;
 }
 
@@ -19,8 +19,155 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
-    color: white;
+    color     : white;
     background: black;
   }
+}
+
+
+.get_dataframes {
+  background         : #FF4742;
+  border             : 1px solid #FF4742;
+  border-radius      : 6px;
+  box-shadow         : rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing         : border-box;
+  color              : #FFFFFF;
+  cursor             : pointer;
+  display            : inline-block;
+  font-family        : nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size          : 16px;
+  font-weight        : 800;
+  line-height        : 16px;
+  min-height         : 40px;
+  outline            : 0;
+  padding            : 12px 14px;
+  text-align         : center;
+  text-rendering     : geometricprecision;
+  text-transform     : none;
+  user-select        : none;
+  -webkit-user-select: none;
+  touch-action       : manipulation;
+  vertical-align     : middle;
+
+}
+
+.df_name,
+.upload_cols {
+  background         : #2be9c0;
+  border             : 1px solid #2be9c0;
+  border-radius      : 6px;
+  box-shadow         : rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing         : border-box;
+  color              : #FFFFFF;
+  cursor             : pointer;
+  display            : inline-block;
+  font-family        : nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size          : 13px;
+  font-weight        : 800;
+  line-height        : 13px;
+  min-height         : 30px;
+  outline            : 0;
+  padding            : 12px 14px;
+  text-align         : center;
+  text-rendering     : geometricprecision;
+  text-transform     : none;
+  user-select        : none;
+  -webkit-user-select: none;
+  touch-action       : manipulation;
+  vertical-align     : middle;
+  margin             : 10px;
+
+}
+
+
+
+
+.df_name:hover,
+.df_name:active {
+  background-color   : initial;
+  background-position: 0 0;
+  color              : #1bd3ab;
+  cursor             : pointer;
+}
+
+.df_name:active {
+  opacity: .5;
+}
+
+.btn_chart,
+.upload_btn,
+.sign_out,
+.delete_df,
+.delete_cols,
+.save_df {
+  background         : #105e72;
+  border             : 1px solid #105e72;
+  border-radius      : 6px;
+  box-shadow         : rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing         : border-box;
+  color              : #FFFFFF;
+  cursor             : pointer;
+  display            : inline-block;
+  font-family        : nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size          : 13px;
+  font-weight        : 800;
+  line-height        : 13px;
+  min-height         : 30px;
+  outline            : 0;
+  padding            : 12px 14px;
+  text-align         : center;
+  text-rendering     : geometricprecision;
+  text-transform     : none;
+  user-select        : none;
+  -webkit-user-select: none;
+  touch-action       : manipulation;
+  vertical-align     : middle;
+  margin             : 10px;
+
+}
+
+.dataset_container {
+  width       : fit-content;
+  max-width   : 40%;
+  margin-left : 50px;
+  margin-right: 50px;
+  height      : auto !important;
+  margin-top  : auto;
+}
+
+.df_chart_cont {
+  display        : flex;
+  justify-content: center;
+  flex-direction : column;
+  align-items    : center;
+}
+
+.list_container {
+  display        : flex;
+  justify-content: center;
+
+  align-items: center;
+}
+
+.charts_cont {
+  display        : flex;
+  flex-direction : row;
+  justify-content: center;
+}
+
+
+
+.chart_view {
+  display        : flex;
+  max-width      : 800px;
+  flex-direction : column;
+  align-content  : center;
+  align-items    : flex-end;
+  justify-content: space-between;
+  flex-wrap      : wrap;
+  margin-left    : auto;
+  margin-right   : auto;
+  margin-top     : 40px;
 }

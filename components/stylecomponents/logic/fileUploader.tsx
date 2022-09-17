@@ -42,6 +42,9 @@ const FileUploader = () => {
   const { data } = useSession();
   const [allcolumns, setAllColumns] = useState<any>([]);
   const userData = JSON.parse(JSON.stringify(data));
+  const contentStyle = { background: "rgba(255,255,255,1)", padding: "20px" };
+  const overlayStyle = { background: "rgba(0,0,0,0.5)" };
+  const arrowStyle = { color: "#000" };
 
   const email = userData.user.email;
 
@@ -63,21 +66,20 @@ const FileUploader = () => {
         workbook,
         workbook.SheetNames[0]
       );
-      
 
-      const cols = []
+      const cols = [];
 
       for (let i = 0; i < new_rows[0].length; i++) {
-        cols.push( { key: String(i), name: new_rows[0][i]})
-                      }
+        cols.push({ key: String(i), name: new_rows[0][i] });
+      }
 
       setRows(new_rows.slice(1));
       setColumns(cols);
       setAllColumns(cols);
       setDataframe(sheet);
       setPopup(true);
-      console.log(sheet, 'here');
-      
+      console.log(sheet, "here");
+
       //console.log(workbook,'1',dld, 'row', rows,'col',columns, JSON.parse(JSON.stringify(sheet)))
     };
   }
@@ -90,8 +92,8 @@ const FileUploader = () => {
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const jsonCol = {columns}
-    const jsonRow = {rows}
+    const jsonCol = { columns };
+    const jsonRow = { rows };
     try {
       const body = { dfName, jsonCol, jsonRow, email, concat };
       await fetch("/api/auth/savedataset", {
@@ -112,16 +114,28 @@ const FileUploader = () => {
 
   return (
     <div className="fileUploaderContainer" style={{ height: "50px" }}>
-      <button onClick={onButtonClick}>Open file upload window</button>
+      <button className="upload_btn" onClick={onButtonClick}>
+        Upload File
+      </button>
       {dataframe && (
         <>
-          <Popup open={popup} position="right center">
+          <Popup
+            open={popup}
+            position="right center"
+            onClose={() => {
+              setPopup(false);
+            }}
+            {...{ contentStyle, overlayStyle, arrowStyle }}
+          >
             {allcolumns.map((obj) => {
               return (
                 <button
-                style={{
-                  color: `${myArray.includes(obj.name) ? 'red': 'blue'}`
-                }}
+                  className="upload_cols"
+                  style={{
+                    color: `${
+                      myArray.includes(obj.name) ? "#2be9c0" : "white"
+                    }`,
+                  }}
                   onClick={() => {
                     updateMyArray((arr) => [...arr, obj.name]);
                   }}
@@ -141,6 +155,7 @@ const FileUploader = () => {
               onClick={() => {
                 setColumns(removeFromArray(columns, ...myArray));
               }}
+              className="delete_cols"
             >
               {" "}
               delete columns
@@ -154,9 +169,12 @@ const FileUploader = () => {
               name="name"
               placeholder="name"
               required
+              style={{ height: "35px" }}
             />
 
-            <button onClick={submitData}>Save Document</button>
+            <button className="save_df" onClick={submitData}>
+              Save Document
+            </button>
           </Popup>
         </>
       )}
